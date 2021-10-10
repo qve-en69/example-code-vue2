@@ -1,26 +1,27 @@
 <template>
-  <div v-if="cocktails.length > 0">
-    <transition-group name="cocktails-list">
-      <div v-for="cocktail in cocktails" :key="cocktail.id">
-        <a-layout class="main-layout">
-          <a-layout-header class="layout-header">
-            <a-input placeholder="Название коктейля..." class="a-input" />
-          </a-layout-header>
-          <a-layout-content>
-            <a-card hoverable style="width 240px" size="small">
-              <img
-                slot="cover"
-                alt="example"
-                :src="cocktail.image"
-              />
-              <a-card-meta :title="cocktail.title" />
-            </a-card>
-          </a-layout-content>
-        </a-layout>
-      </div>
-    </transition-group>
+  <div v-if="isCocktailsLoading">
+    <a-card
+      class="card-item"
+      style="height: 150px"
+      hoverable
+      :loading="isCocktailsLoading"
+    >
+      <a-card-meta />
+    </a-card>
   </div>
-  <h2 v-else>Список коктейлей пуст</h2>
+  <div v-else>
+    <a-card
+      class="card-item"
+      hoverable
+      v-for="cocktail in cocktails"
+      :key="cocktail.idDrink"
+    >
+      <img slot="cover" alt="example" :src="cocktail.strDrinkThumb" />
+      <a-card-meta :title="cocktail.strDrink" />
+      <!-- <template slot="description"> <div class=".text"> www.instagram.com </div></template> -->
+      <!-- </a-card-meta> -->
+    </a-card>
+  </div>
 </template>
 
 <script>
@@ -30,25 +31,16 @@ export default {
       type: Array,
       required: true,
     },
+    isCocktailsLoading: {
+      type: Boolean,
+      default: false,
+    },
   },
 };
 </script>
 
 <style scoped>
-.cocktail-list-item {
-  display: inline-block;
-  margin-right: 10px;
-}
-.cocktail-list-enter-active,
-.cocktail-list-leave-active {
-  transition: all 0.4s ease;
-}
-.cocktail-list-enter-from,
-.cocktail-list-leave-to {
-  opacity: 0;
-  transform: translateX(130px);
-}
-.cocktail-list-move {
-  transition: transform 0.4s ease;
+.card-item {
+  margin: 20px;
 }
 </style>

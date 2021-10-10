@@ -2,50 +2,27 @@
   <div>
     <a-layout class="main-layout">
       <a-layout-header class="layout-header">
-        <a-button type="link" ghost>
-          <a-icon type="filter" theme="filled" style="font-size: x-large" />
-        </a-button>
-        <a-input placeholder="Название коктейля..." class="a-input" />
-        <a-button type="link" ghost>
-          <a-icon type="star" theme="filled" style="font-size: x-large"/>
-        </a-button>
+        <cocktails-header />
       </a-layout-header>
       <a-layout-content>
-        <div v-if="isCocktailsLoading">
-          <a-card
-            class="card-item"
-            style="height: 150px"
-            hoverable
-            :loading="isCocktailsLoading"
-          >
-            <a-card-meta />
-          </a-card>
-        </div>
-        <div v-else>
-          <a-card
-            class="card-item"
-            hoverable
-            v-for="cocktail in cocktails"
-            :key="cocktail.idDrink"
-          >
-            <img slot="cover" alt="example" :src="cocktail.strDrinkThumb" />
-            <a-card-meta :title="cocktail.strDrink" />
-            <!-- <template slot="description"> <div class=".text"> www.instagram.com </div></template> -->
-            <!-- </a-card-meta> -->
-          </a-card>
-        </div>
+        <cocktail-list
+          :cocktails="cocktails"
+          :isCocktailsLoading="isCocktailsLoading"
+        />
       </a-layout-content>
     </a-layout>
   </div>
 </template>
 
 <script>
-import Nav from "@/components/Nav.vue";
-import axios from "axios";
+import CocktailList from "@/components/CocktailList.vue";
+import CocktailsHeader from "@/components/CocktailsHeader.vue";
+import cocktailsApi from "@/api/cocktail";
 
 export default {
   components: {
-    Nav,
+    CocktailList,
+    CocktailsHeader,
   },
   data() {
     return {
@@ -57,59 +34,29 @@ export default {
     this.fetchCocktails();
   },
   methods: {
-    async fetchCocktails() {
-      try {
-        this.isCocktailsLoading = true;
-        axios;
-        const response = await axios.get(
-          "http://localhost:8080/api/json/v1/1/search.php",
-          {
-            params: {
-              f: "a",
-            },
-          }
-        );
-        this.cocktails = response.data.drinks;
-        console.log("response", response);
-      } catch (e) {
-        console.log("fetch error", e);
-      } finally {
-        this.isCocktailsLoading = false;
-      }
+    fetchCocktails() {
+      this.isCocktailsLoading = true;
+      let params = { f: "a" };
+      cocktailsApi
+        .fetchCocktails(params)
+        .then((cocktails) => (this.cocktails = cocktails))
+        .finally(() => (this.isCocktailsLoading = false));
     },
   },
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .main-layout {
   width: 414px;
   margin: 0 auto;
 }
 .layout-header {
-  background: #234994;
   padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  .a-input {
-    background: #395b9f;
-    border: 0;
-    width: 70%;
-    color: white;
-  }
-  a-button {
-    position: relative;
-  }
+  height: auto;
 }
 .text {
   font-size: 3rem;
   line-height: 1;
 }
-.card-item {
-  margin: 20px;
-}
-/* ::-webkit-input-placeholder {
-  color: white;
-} */
 </style>
