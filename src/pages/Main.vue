@@ -34,9 +34,8 @@ export default {
     this.fetchCocktails();
   },
   methods: {
-    fetchCocktails() {
+    fetchCocktails(params = { f: "a" }) {
       this.isCocktailsLoading = true;
-      let params = { f: "a" };
       cocktailsApi
         .fetchCocktails(params)
         .then((cocktails) => (this.cocktails = cocktails))

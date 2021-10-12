@@ -15,6 +15,7 @@
       hoverable
       v-for="cocktail in cocktails"
       :key="cocktail.idDrink"
+      @click="$router.push({ name: 'Cocktail', params: { id: cocktail.idDrink } })"
     >
       <img slot="cover" alt="example" :src="cocktail.strDrinkThumb" />
       <a-card-meta :title="cocktail.strDrink" />
