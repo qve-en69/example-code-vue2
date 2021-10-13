@@ -46,10 +46,6 @@ export default {
 </script>
 
 <style lang="scss">
-.main-layout {
-  width: 414px;
-  margin: 0 auto;
-}
 .layout-header {
   padding: 0;
   height: auto;

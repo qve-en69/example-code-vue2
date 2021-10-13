@@ -13,6 +13,10 @@ const routes = [
     path: '/cocktails/:id',
     name: 'Cocktail',
     component: () => import('@/pages/Cocktail.vue')
+  },
+  {
+    path: '*',
+    redirect: '/'
   }
 ];
 
