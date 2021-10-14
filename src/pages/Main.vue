@@ -2,7 +2,7 @@
   <div>
     <a-layout class="main-layout">
       <a-layout-header class="layout-header">
-        <cocktails-header />
+        <cocktails-header :nameCocktail.sync="nameCocktail"/>
       </a-layout-header>
       <a-layout-content>
         <cocktail-list
@@ -28,19 +28,25 @@ export default {
     return {
       cocktails: [],
       isCocktailsLoading: false,
-    };
+      nameCocktail: ''
+    }
+  },
+  watch: {
+    nameCocktail(val) {
+      this.fetchSearch(val)
+    }
   },
   created() {
-    this.fetchCocktails();
+    this.fetchSearch('')
   },
   methods: {
-    fetchCocktails(params = { f: "a" }) {
+    fetchSearch(name) {
       this.isCocktailsLoading = true;
       cocktailsApi
-        .fetchCocktails(params)
-        .then((cocktails) => (this.cocktails = cocktails))
-        .finally(() => (this.isCocktailsLoading = false));
-    },
+        .fetchSearch(name)
+        .then((cocktails) => this.cocktails = cocktails)
+        .finally(() => (this.isCocktailsLoading = false))
+    }
   },
 };
 </script>

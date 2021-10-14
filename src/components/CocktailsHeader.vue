@@ -3,7 +3,7 @@
   <a-button type="link" ghost>
     <a-icon type="filter" theme="filled" style="font-size: x-large" />
   </a-button>
-  <a-input placeholder="Название коктейля..." class="a-input" />
+  <a-input placeholder="Название коктейля..." class="a-input" v-model:value="name"/>
   <a-button type="link" ghost>
     <a-icon type="star" theme="filled" style="font-size: x-large" />
   </a-button>
@@ -13,6 +13,19 @@
 <script>
 
 export default {
+  props: {
+    nameCocktail: String
+  },
+  data() {
+    return {
+      name: this.nameCocktail,
+    }
+  },
+  watch: {
+    name(val) {
+      this.$emit('update:nameCocktail', val)
+    }
+  }
 };
 </script>
 
