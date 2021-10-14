@@ -15,6 +15,7 @@ export default {
   width: 414px;
   margin: 0 auto;
   font-family:  Arial, Avenir, Helvetica, sans-serif;
+  font-size: 18px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

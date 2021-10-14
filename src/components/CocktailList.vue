@@ -2,7 +2,6 @@
   <div v-if="isCocktailsLoading">
     <a-card
       class="card-item"
-      style="height: 150px"
       hoverable
       :loading="isCocktailsLoading"
     >
@@ -18,7 +17,10 @@
       @click="$router.push({ name: 'Cocktail', params: { id: cocktail.idDrink } })"
     >
       <img slot="cover" alt="example" :src="cocktail.strDrinkThumb" />
-      <a-card-meta :title="cocktail.strDrink" />
+      <div class="meta">
+          {{ cocktail.strDrink }}
+      </div>
+      
     </a-card>
   </div>
 </template>
@@ -41,5 +43,12 @@ export default {
 <style scoped>
 .card-item {
   margin: 20px;
+  text-align: left;
+}
+.meta {
+  height: 100%;
+  width: 100%;
+  font-size: 24px;
+  font-weight: bold;
 }
 </style>
