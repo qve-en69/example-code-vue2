@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="imgCocktail" :style="{ backgroundImage: backgroundImage }">
-      <a-button type="link">
-        <a-icon type="close" :style="{ fontSize: '25px', color: '#fff' }" @click="$router.go(-1)"/>
+      <a-button type="link" @click="$router.go(-1)">
+        <a-icon type="close" :style="{ fontSize: '25px', color: '#fff' }" />
       </a-button>
       <a-button type="link">
         <a-icon type="star" :style="{ fontSize: '25px', color: '#fff' }" />

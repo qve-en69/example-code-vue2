@@ -19,8 +19,6 @@
     >
       <img slot="cover" alt="example" :src="cocktail.strDrinkThumb" />
       <a-card-meta :title="cocktail.strDrink" />
-      <!-- <template slot="description"> <div class=".text"> www.instagram.com </div></template> -->
-      <!-- </a-card-meta> -->
     </a-card>
   </div>
 </template>

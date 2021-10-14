@@ -1,5 +1,10 @@
 module.exports = {
     devServer: {
-        proxy: 'http://www.thecocktaildb.com/',
+        proxy: {
+            "/api": {
+                target: 'http://www.thecocktaildb.com/',
+                changeOrigin: true
+            }
+        }
     }
 }

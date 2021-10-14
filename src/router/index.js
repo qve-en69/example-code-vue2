@@ -5,18 +5,18 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
+    path: '/cocktails',
     name: 'Main',
     component: () => import('@/pages/Main.vue'),
   },
   {
-    path: '/cocktails/:id',
+    path: '/cocktail/:id',
     name: 'Cocktail',
     component: () => import('@/pages/Cocktail.vue')
   },
   {
     path: '*',
-    redirect: '/'
+    redirect: '/cocktails'
   }
 ];
 
