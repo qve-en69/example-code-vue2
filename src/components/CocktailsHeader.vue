@@ -1,13 +1,39 @@
 <template>
-<div class="header">
-  <a-button type="link" ghost>
-    <a-icon type="filter" theme="filled" style="font-size: x-large" />
-  </a-button>
-  <a-input placeholder="Название коктейля..." class="a-input" v-model:value="name"/>
-  <a-button type="link" ghost>
-    <a-icon type="star" theme="filled" style="font-size: x-large" />
-  </a-button>
+<div>
+  <div class="header">
+    <a-button type="link" @click="filter=!filter" ghost>
+      <a-icon type="filter" theme="filled" style="font-size: x-large" />
+    </a-button>
+    <a-input placeholder="Название коктейля..." class="a-input" v-model="name"/>
+    <a-button type="link" ghost>
+      <a-icon type="star" theme="filled" style="font-size: x-large" />
+    </a-button>
+    
+  </div>
+  <div class="filter" v-show="filter">
+    <div class="group">
+      <a-radio-group default-value="alcohol" button-style="solid">
+        <a-radio-button value="alcohol">
+          Алкогольный
+        </a-radio-button>
+        <a-radio-button value="nonalcohol">
+          Безалкогольный
+        </a-radio-button>
+      </a-radio-group>
+    </div>
+    <div class="group">
+      <a-radio-group default-value="cocktail" button-style="solid">
+        <a-radio-button value="ordinary">
+          Обычный напиток
+        </a-radio-button>
+        <a-radio-button value="cocktail">
+          Коктейль
+        </a-radio-button>
+      </a-radio-group>
+    </div>
+  </div>
 </div>
+
 </template>
 
 <script>
@@ -19,11 +45,16 @@ export default {
   data() {
     return {
       name: this.nameCocktail,
+      filter: false,
     }
   },
   watch: {
+    
     name(val) {
       this.$emit('update:nameCocktail', val)
+    },
+    filter(val) {
+      this.$emit('update:flagFilter', val)
     }
   }
 };
@@ -46,5 +77,13 @@ export default {
   a-button {
     position: relative;
   }
+}
+.filter {
+  padding: 15px;
+  background: white;
+  box-shadow: 0 15px 10px -8px rgba(0, 0, 0, .2);
+}
+.group {
+  margin: -10px;
 }
 </style>

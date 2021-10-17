@@ -2,9 +2,12 @@
   <div>
     <a-layout class="main-layout">
       <a-layout-header class="layout-header">
-        <cocktails-header :nameCocktail.sync="nameCocktail"/>
+        <cocktails-header :nameCocktail.sync="nameCocktail" :flagFilter.sync="flagFilter"/>
+      <div class="favourites">
+      </div>
       </a-layout-header>
-      <a-layout-content>
+      
+      <a-layout-content class="layout-content">
         <cocktail-list
           :cocktails="cocktails"
           :isCocktailsLoading="isCocktailsLoading"
@@ -28,7 +31,7 @@ export default {
     return {
       cocktails: [],
       isCocktailsLoading: false,
-      nameCocktail: ''
+      nameCocktail: '',
     }
   },
   watch: {
@@ -53,11 +56,18 @@ export default {
 
 <style lang="scss">
 .layout-header {
+  position: fixed;
+  top: 0;
   padding: 0;
-  height: auto;
+  width: 414px;
+  z-index: 100;
+}
+.layout-content {
+  margin-top: 4rem;
 }
 .text {
   font-size: 3rem;
   line-height: 1;
 }
+
 </style>
