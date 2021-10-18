@@ -16,7 +16,7 @@
       :key="cocktail.idDrink"
       @click="$router.push({ name: 'Cocktail', params: { id: cocktail.idDrink } })"
     >
-      <img slot="cover" alt="example" :src="cocktail.strDrinkThumb" />
+      <img slot="cover" :src="cocktail.strDrinkThumb" />
       <div class="meta">
           {{ cocktail.strDrink }}
       </div>

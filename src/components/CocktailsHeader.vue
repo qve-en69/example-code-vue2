@@ -33,7 +33,10 @@
     </div>
   </div>
   <div class="favorites" v-show="favShow">
-    <div v-for="fav in favorites" :key="fav">{{ fav }}</div>
+    <div class="fav" v-for="fav in favorites" :key="fav.id">
+      <img slot="cover" :src="fav.preview" />
+      <div>{{ fav.title }}</div>
+    </div>
   </div>
 </div>
 
@@ -109,5 +112,10 @@ export default {
 }
 .group {
   margin: -10px;
+}
+.fav {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
 }
 </style>

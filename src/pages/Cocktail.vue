@@ -72,11 +72,13 @@ export default {
     },
     onClickStar() {
       if (!localStorage.favorites) 
-        localStorage.favorites = JSON.stringify([this.cocktailId])
+        localStorage.favorites = JSON.stringify([{id: this.cocktailId, preview: this.cocktail.strDrinkThumb+'/preview', title: this.cocktail.strDrink }])
       else {
         let favs = JSON.parse(localStorage.favorites)
-        favs.push(this.cocktailId)
-        localStorage.favorites = JSON.stringify([...new Set(favs)])
+        if (!favs.find(fav => fav.id === this.cocktailId)) { // проверяем, есть ли в localstorage уже такой элемент
+          favs.push({id: this.cocktailId, preview: this.cocktail.strDrinkThumb+'/preview', title: this.cocktail.strDrink })
+          localStorage.favorites = JSON.stringify([...new Set(favs)])
+        }
       }
     }
   },
