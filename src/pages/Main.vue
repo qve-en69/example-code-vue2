@@ -2,7 +2,7 @@
   <div>
     <a-layout class="main-layout">
       <a-layout-header class="layout-header">
-        <cocktails-header :nameCocktail.sync="nameCocktail" :flagFilter.sync="flagFilter"/>
+        <cocktails-header :nameCocktail.sync="nameCocktail" :filterCocktails.sync="filterCocktails"/>
       <div class="favourites">
       </div>
       </a-layout-header>
@@ -32,11 +32,15 @@ export default {
       cocktails: [],
       isCocktailsLoading: false,
       nameCocktail: '',
+      filterCocktails: { a: 'Alcoholic', c: 'Cocktail' }
     }
   },
   watch: {
     nameCocktail(val) {
       this.fetchSearch(val)
+    },
+    filterCocktails(val) {
+      this.fetchByFilter(val)
     }
   },
   created() {
@@ -47,6 +51,13 @@ export default {
       this.isCocktailsLoading = true;
       cocktailsApi
         .fetchSearch(name)
+        .then((cocktails) => this.cocktails = cocktails)
+        .finally(() => (this.isCocktailsLoading = false))
+    },
+    fetchByFilter(filter) {
+      this.isCocktailsLoading = true;
+      cocktailsApi
+        .fetchByFilter(filter)
         .then((cocktails) => this.cocktails = cocktails)
         .finally(() => (this.isCocktailsLoading = false))
     }

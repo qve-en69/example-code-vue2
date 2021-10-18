@@ -18,5 +18,11 @@ export default {
             .get("http://localhost:8080/api/json/v1/1/search.php", { params: { s: name } })
             .then(response => response.data.drinks ? response.data.drinks : [] )
             .catch(error => console.log(error))
+    },
+    fetchByFilter(filter) {
+        return axios
+            .get("http://localhost:8080/api/json/v1/1/filter.php", { params: filter })
+            .then(response => response.data.drinks ? response.data.drinks : [] )
+            .catch(error => console.log(error))
     }
 }

@@ -4,7 +4,7 @@
       <a-button type="link" @click="$router.go(-1)">
         <a-icon type="close" :style="{ fontSize: '25px', color: '#fff' }" />
       </a-button>
-      <a-button type="link">
+      <a-button type="link" @click="onClickStar">
         <a-icon type="star" :style="{ fontSize: '25px', color: '#fff' }" />
       </a-button>
     </div>
@@ -70,6 +70,15 @@ export default {
         })
         .finally(() => (this.isCocktailsLoading = false));
     },
+    onClickStar() {
+      if (!localStorage.favorites) 
+        localStorage.favorites = JSON.stringify([this.cocktailId])
+      else {
+        let favs = JSON.parse(localStorage.favorites)
+        favs.push(this.cocktailId)
+        localStorage.favorites = JSON.stringify([...new Set(favs)])
+      }
+    }
   },
 };
 </script>

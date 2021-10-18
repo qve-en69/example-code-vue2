@@ -1,36 +1,39 @@
 <template>
 <div>
   <div class="header">
-    <a-button type="link" @click="filter=!filter" ghost>
+    <a-button type="link" @click="onClickButtonFilter" ghost>
       <a-icon type="filter" theme="filled" style="font-size: x-large" />
     </a-button>
     <a-input placeholder="Название коктейля..." class="a-input" v-model="name"/>
-    <a-button type="link" ghost>
+    <a-button type="link" @click="onClickButtonFavorites" ghost>
       <a-icon type="star" theme="filled" style="font-size: x-large" />
     </a-button>
     
   </div>
-  <div class="filter" v-show="filter">
+  <div class="filter" v-show="filterShow">
     <div class="group">
-      <a-radio-group default-value="alcohol" button-style="solid">
-        <a-radio-button value="alcohol">
+      <a-radio-group v-model="alcoholic" button-style="solid">
+        <a-radio-button value="Alcoholic">
           Алкогольный
         </a-radio-button>
-        <a-radio-button value="nonalcohol">
+        <a-radio-button value="Non_Alcoholic">
           Безалкогольный
         </a-radio-button>
       </a-radio-group>
     </div>
     <div class="group">
-      <a-radio-group default-value="cocktail" button-style="solid">
-        <a-radio-button value="ordinary">
+      <a-radio-group v-model="category" button-style="solid">
+        <a-radio-button value="Ordinary_Drink">
           Обычный напиток
         </a-radio-button>
-        <a-radio-button value="cocktail">
+        <a-radio-button value="Cocktail">
           Коктейль
         </a-radio-button>
       </a-radio-group>
     </div>
+  </div>
+  <div class="favorites" v-show="favShow">
+    <div v-for="fav in favorites" :key="fav">{{ fav }}</div>
   </div>
 </div>
 
@@ -40,24 +43,45 @@
 
 export default {
   props: {
-    nameCocktail: String
+    nameCocktail: String,
+    filterCocktails: {
+      type: Object,
+      required: true
+    }
   },
   data() {
     return {
       name: this.nameCocktail,
-      filter: false,
+      filterShow: false,
+      alcoholic: this.filterCocktails.a,
+      category: this.filterCocktails.c,
+      favShow: false,
+      favorites: localStorage.favorites ? JSON.parse(localStorage.favorites) : []
     }
   },
   watch: {
-    
     name(val) {
       this.$emit('update:nameCocktail', val)
     },
-    filter(val) {
-      this.$emit('update:flagFilter', val)
+    alcoholic() {
+      this.$emit('update:filterCocktails', { a: this.alcoholic, c: this.category })
+    },
+    category() {
+      this.$emit('update:filterCocktails', { a: this.alcoholic, c: this.category })
+    }
+  },
+  methods: {
+    onClickButtonFilter() {
+      if (!this.favShow)
+        this.filterShow = !this.filterShow
+    },
+    onClickButtonFavorites() {
+      if (!this.filterShow)
+        this.favShow = !this.favShow
     }
   }
-};
+}
+
 </script>
 
 <style lang="scss" scoped>
@@ -78,7 +102,7 @@ export default {
     position: relative;
   }
 }
-.filter {
+.filter, .favorites {
   padding: 15px;
   background: white;
   box-shadow: 0 15px 10px -8px rgba(0, 0, 0, .2);
