@@ -70,7 +70,7 @@ export default {
   position: fixed;
   top: 0;
   padding: 0;
-  width: 414px;
+  width: var(--app-width);
   z-index: 100;
 }
 .layout-content {

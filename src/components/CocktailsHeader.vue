@@ -34,8 +34,11 @@
   </div>
   <div class="favorites" v-show="favShow">
     <div class="fav" v-for="fav in favorites" :key="fav.id">
-      <img slot="cover" :src="fav.preview" />
+      <img style="height: 3rem" :src="fav.preview" />
       <div>{{ fav.title }}</div>
+      <a-button type="link" @click.stop="onClickButtonRemoveFav(fav)" ghost>
+        <a-icon type="star" theme="filled" style="font-size: x-large; color: red" />
+      </a-button>
     </div>
   </div>
 </div>
@@ -81,6 +84,14 @@ export default {
     onClickButtonFavorites() {
       if (!this.filterShow)
         this.favShow = !this.favShow
+    },
+    onClickButtonRemoveFav(item) {
+      if (localStorage.favorites) {
+        let favs = JSON.parse(localStorage.favorites)
+        favs = favs.filter(fav => fav.id !== item.id)
+        localStorage.favorites = JSON.stringify(favs)
+      }
+      this.favorites = localStorage.favorites ? JSON.parse(localStorage.favorites) : []
     }
   }
 }
@@ -115,7 +126,20 @@ export default {
 }
 .fav {
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 5px;
+  align-items: center;
+  margin-bottom: .5rem;
+  img {
+    flex-basis: 3rem;
+  }
+  div {
+    text-align: left;
+    flex-grow: 1;
+    line-height: 3rem;
+    padding-left: 1rem;
+  }
+  a-button {
+    text-align: left;
+    flex-basis: 3rem;
+  }
 }
 </style>

@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <div class="main-cocktail">
     <div class="img-cocktail" :style="{ backgroundImage: backgroundImage }">
       <a-button type="link" @click="$router.go(-1)">
         <a-icon type="close" :style="{ fontSize: '25px', color: '#fff' }" />
       </a-button>
       <a-button type="link" @click="onClickStar">
-        <a-icon type="star" :style="{ fontSize: '25px', color: '#fff' }" />
+        <a-icon class="button-star" type="star" :style="{ fontSize: '25px', color: '#fff' }" />
       </a-button>
     </div>
     <div class="info-cocktail">
@@ -80,6 +80,7 @@ export default {
           localStorage.favorites = JSON.stringify([...new Set(favs)])
         }
       }
+      // console.log(document.querySelector('.button-star')).style.color = 'red';
     }
   },
 };

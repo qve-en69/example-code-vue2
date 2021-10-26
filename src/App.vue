@@ -11,8 +11,14 @@ export default {
 </script>
 
 <style lang="scss">
+:root {
+  --app-width: 414px;
+  @media(max-width: 415px) {
+    --app-width: 100%;
+  }
+}
 #app {
-  width: 414px;
+  width: var(--app-width);  
   margin: 0 auto;
   font-family:  Arial, Avenir, Helvetica, sans-serif;
   font-size: 18px;
