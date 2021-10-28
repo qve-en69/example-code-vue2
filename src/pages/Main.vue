@@ -71,7 +71,7 @@ export default {
   top: 0;
   padding: 0;
   width: var(--app-width);
-  z-index: 100;
+  z-index: 1;
 }
 .layout-content {
   margin-top: 4rem;
